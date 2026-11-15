@@ -66,12 +66,7 @@
                 <textarea asp-for="Book.Description" class="form-control" rows="3"></textarea>
             </div>
             <div class="form-check mb-4">
-                <!-- СКРЫТОЕ ПОЛЕ: передает false, если галочка снята -->
-                <input type="hidden" asp-for="Book.IsAvailable" value="false" />
-
-                <!-- САМ ЧЕКБОКС -->
-                <input asp-for="Book.IsAvailable" class="form-check-input" type="checkbox" />
-
+                <input asp-for="Book.IsAvailable" class="form-check-input" type="checkbox" value="true" />
                 <label asp-for="Book.IsAvailable" class="form-check-label" style="color: var(--coq-rose); font-weight: 600;">
                     В наличии
                 </label>

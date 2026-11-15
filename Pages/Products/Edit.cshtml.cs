@@ -22,8 +22,8 @@ namespace wt_lab4_4mvc_valkovich.Pages.Products
 
         public IActionResult OnPost()
         {
-            // Убираем строгую проверку, чтобы кнопка не блокировалась
-            // if (!ModelState.IsValid) return Page(); // <-- Закомментировали на время
+            // Временно отключаем строгую проверку, чтобы форма сохранялась при любом статусе
+            // if (!ModelState.IsValid) return Page();
 
             var existingBook = BookStore.Books.FirstOrDefault(b => b.Id == Book.Id);
             if (existingBook == null)
@@ -38,6 +38,8 @@ namespace wt_lab4_4mvc_valkovich.Pages.Products
             existingBook.ISBN = Book.ISBN;
             existingBook.ImageUrl = Book.ImageUrl;
             existingBook.Description = Book.Description;
+
+            // Обновляем статус (если галочка снята, сюда придет false)
             existingBook.IsAvailable = Book.IsAvailable;
 
             return RedirectToPage("./Index");
