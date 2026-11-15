@@ -1,25 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using wt_lab4_4mvc_valkovich.Models;
-using wt_lab4_4mvc_valkovich.Data;
+using wt_lab8_8razor_postgresql_valkovich.Data;
+using wt_lab8_8razor_postgresql_valkovich.Models;
 
-namespace wt_lab4_4mvc_valkovich.Pages.Products
+namespace wt_lab8_8razor_postgresql_valkovich.Pages.Products
 {
     public class CreateModel : PageModel
     {
-        [BindProperty] // Привязывает данные из формы к этому свойству
+        private readonly AppDbContext _context;
+        public CreateModel(AppDbContext context) => _context = context;
+
+        [BindProperty]
         public Book Book { get; set; } = new();
 
-        public void OnGet() { } // Просто показываем страницу
+        public IActionResult OnGet() => Page();
 
-        public IActionResult OnPost() // Обрабатываем отправку формы
+        public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid) return Page(); // Если ошибки валидации - вернуть форму
+            if (!ModelState.IsValid) return Page();
 
-            Book.Id = BookStore.Books.Any() ? BookStore.Books.Max(b => b.Id) + 1 : 1;
-            BookStore.Books.Add(Book);
-
-            return RedirectToPage("./Index"); // Переход на список
+            _context.Books.Add(Book);
+            await _context.SaveChangesAsync();
+            return RedirectToPage("./Index");
         }
     }
 }

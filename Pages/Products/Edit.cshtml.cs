@@ -1,56 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using wt_lab4_4mvc_valkovich.Models;
-using wt_lab4_4mvc_valkovich.Data;
+using wt_lab8_8razor_postgresql_valkovich.Data;
+using wt_lab8_8razor_postgresql_valkovich.Models;
 
-namespace wt_lab4_4mvc_valkovich.Pages.Products
+namespace wt_lab8_8razor_postgresql_valkovich.Pages.Products
 {
     public class EditModel : PageModel
     {
+        private readonly AppDbContext _context;
+        public EditModel(AppDbContext context) => _context = context;
+
         [BindProperty]
         public Book Book { get; set; } = new();
 
-        public IActionResult OnGet(int id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            var existingBook = BookStore.Books.FirstOrDefault(b => b.Id == id);
-            if (existingBook == null)
-                return NotFound();
-
-            Book = existingBook;
-            return Page();
+            Book = await _context.Books.FindAsync(id);
+            return Book == null ? NotFound() : Page();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
-            // Временно отключаем строгую проверку, чтобы форма сохранялась при любом статусе
-            // if (!ModelState.IsValid) return Page();
+            if (!ModelState.IsValid) return Page();
 
-            var existingBook = BookStore.Books.FirstOrDefault(b => b.Id == Book.Id);
-            if (existingBook == null)
-                return NotFound();
-
-            existingBook.Title = Book.Title;
-            existingBook.Author = Book.Author;
-            existingBook.Genre = Book.Genre;
-            existingBook.Year = Book.Year;
-            existingBook.Price = Book.Price;
-            existingBook.Pages = Book.Pages;
-            existingBook.ISBN = Book.ISBN;
-            existingBook.ImageUrl = Book.ImageUrl;
-            existingBook.Description = Book.Description;
-
-            // Обновляем статус (если галочка снята, сюда придет false)
-            existingBook.IsAvailable = Book.IsAvailable;
-
+            _context.Books.Update(Book);
+            await _context.SaveChangesAsync();
             return RedirectToPage("./Index");
         }
 
-        public IActionResult OnPostDelete(int id)
+        public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
-            var book = BookStore.Books.FirstOrDefault(b => b.Id == id);
+            var book = await _context.Books.FindAsync(id);
             if (book != null)
             {
-                BookStore.Books.Remove(book);
+                _context.Books.Remove(book);
+                await _context.SaveChangesAsync();
             }
             return RedirectToPage("./Index");
         }

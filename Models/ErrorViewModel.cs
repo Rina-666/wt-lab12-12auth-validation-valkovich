@@ -1,4 +1,4 @@
-namespace wt_lab4_4mvc_valkovich.Models;
+namespace wt_lab8_8razor_postgresql_valkovich.Models;
 
 public class ErrorViewModel
 {
