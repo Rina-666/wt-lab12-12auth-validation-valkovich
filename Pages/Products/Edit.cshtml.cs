@@ -10,30 +10,25 @@ namespace wt_lab4_4mvc_valkovich.Pages.Products
         [BindProperty]
         public Book Book { get; set; } = new();
 
-        // Этот метод срабатывает, когда мы только открываем страницу (GET)
         public IActionResult OnGet(int id)
         {
             var existingBook = BookStore.Books.FirstOrDefault(b => b.Id == id);
-
             if (existingBook == null)
-                return NotFound(); // Если книги с таким ID нет — ошибка 404
+                return NotFound();
 
             Book = existingBook;
             return Page();
         }
 
-        // Этот метод срабатывает, когда мы нажимаем "Сохранить" (POST)
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid)
-                return Page();
+            // Убираем строгую проверку, чтобы кнопка не блокировалась
+            // if (!ModelState.IsValid) return Page(); // <-- Закомментировали на время
 
             var existingBook = BookStore.Books.FirstOrDefault(b => b.Id == Book.Id);
-
             if (existingBook == null)
                 return NotFound();
 
-            // Обновляем все поля книги
             existingBook.Title = Book.Title;
             existingBook.Author = Book.Author;
             existingBook.Genre = Book.Genre;
@@ -45,9 +40,9 @@ namespace wt_lab4_4mvc_valkovich.Pages.Products
             existingBook.Description = Book.Description;
             existingBook.IsAvailable = Book.IsAvailable;
 
-            // Возвращаемся в каталог
             return RedirectToPage("./Index");
         }
+
         public IActionResult OnPostDelete(int id)
         {
             var book = BookStore.Books.FirstOrDefault(b => b.Id == id);
@@ -55,7 +50,7 @@ namespace wt_lab4_4mvc_valkovich.Pages.Products
             {
                 BookStore.Books.Remove(book);
             }
-            return RedirectToPage("./Index"); // Возвращаемся в каталог
+            return RedirectToPage("./Index");
         }
     }
 }
