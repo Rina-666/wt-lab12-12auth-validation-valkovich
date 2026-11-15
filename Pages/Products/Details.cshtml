@@ -19,16 +19,16 @@
                 <div class="col-md-5 mb-4 mb-md-0 text-center">
                     <div class="book-cover-frame">
                         @if (!string.IsNullOrEmpty(Model.Book?.ImageUrl))
-                        {
+    {
                         <img src="@Model.Book.ImageUrl" alt="Обложка книги" class="img-fluid rounded-3 shadow-sm" style="max-height: 400px; width: 100%; object-fit: cover;">
-                        }
-                        else
-                        {
+    }
+    else
+    {
                         <div class="d-flex flex-column align-items-center justify-content-center bg-light" style="height: 300px; border-radius: 15px;">
                             <i class="bi bi-image text-muted" style="font-size: 4rem;"></i>
                             <p class="text-muted mt-2">Нет обложки</p>
                         </div>
-                        }
+    }
                         <p class="text-muted small mt-2">Обложка книги</p>
                     </div>
                 </div>
@@ -43,18 +43,6 @@
                         <li><i class="bi bi-upc-scan"></i> <strong>ISBN:</strong> @Model.Book?.ISBN</li>
                         <li>
                             <i class="bi bi-info-circle"></i> <strong>Статус:</strong>
-
-                            <!-- ФОРМА ДЛЯ ИЗМЕНЕНИЯ СТАТУСА -->
-                            <form method="post" asp-route-id="@Model.Book?.Id" style="display: inline-block; margin-left: 10px;">
-                                <div class="form-check form-switch d-inline-block" style="vertical-align: middle;">
-                                    <input type="checkbox" name="isAvailable" class="form-check-input"
-                                           @(Model.Book?.IsAvailable == true ? "checked" : "")
-                                           onchange="this.form.submit()"
-                                           style="cursor: pointer; width: 2.5em; height: 1.25em;" />
-                                </div>
-                            </form>
-
-                            <!-- Бейдж, показывающий текущий статус -->
                             @if (Model.Book?.IsAvailable == true)
                             {
                             <span class="badge-coquette badge-coquette-success ms-2">♡ в наличии</span>
