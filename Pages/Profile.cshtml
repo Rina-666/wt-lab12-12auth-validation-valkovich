@@ -1,7 +1,7 @@
-@page
+п»ї@page
 @model wt_lab12_12auth_validation_valkovich.Pages.ProfileModel
 @{
-    ViewData["Title"] = "Личный кабинет";
+    ViewData["Title"] = "Р›РёС‡РЅС‹Р№ РєР°Р±РёРЅРµС‚";
 }
 
 <style>
@@ -37,7 +37,7 @@
     <div class="card shadow-sm rounded-4 mx-auto" style="max-width: 560px;">
         <div class="card-body p-4 p-md-5">
             <h1 class="mb-4 text-center profile-coquette-text" style="font-family: 'Dancing Script', cursive;">
-                Личный кабинет
+                Р›РёС‡РЅС‹Р№ РєР°Р±РёРЅРµС‚
             </h1>
 
             @if (!string.IsNullOrWhiteSpace(Model.StatusMessage))
@@ -58,7 +58,7 @@
                 @if (!string.IsNullOrWhiteSpace(Model.AvatarPath))
                 {
                 <img src="@Model.AvatarPath"
-                     alt="Фото пользователя @Model.UserLogin"
+                     alt="Р¤РѕС‚Рѕ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ @Model.UserLogin"
                      class="rounded-circle object-fit-cover border mb-3"
                      style="width: 128px; height: 128px;" />
                 }
@@ -71,36 +71,36 @@
                 }
 
                 <div class="fs-5 mb-1 profile-coquette-text">
-                    Пользователь: <strong>@Model.UserLogin</strong>
+                    РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ: <strong>@Model.UserLogin</strong>
                 </div>
                 <div class="small profile-coquette-subtext">
-                    ID в системе: <strong>@(Model.UserId > 0 ? Model.UserId : "—")</strong> · Статус: <strong>@Model.RoleTitle</strong>
+                    ID РІ СЃРёСЃС‚РµРјРµ: <strong>@(Model.UserId > 0 ? Model.UserId : "вЂ”")</strong> В· РЎС‚Р°С‚СѓСЃ: <strong>@Model.RoleTitle</strong>
                 </div>
             </div>
 
             <form method="post" asp-page-handler="UploadAvatar" enctype="multipart/form-data" class="mb-4 border-top pt-3">
                 <label asp-for="AvatarFile" class="form-label fw-semibold profile-coquette-text">
-                    Загрузить фото профиля
+                    Р—Р°РіСЂСѓР·РёС‚СЊ С„РѕС‚Рѕ РїСЂРѕС„РёР»СЏ
                 </label>
                 <div class="input-group">
                     <input asp-for="AvatarFile" type="file" accept="image/*" class="form-control" />
                     <button type="submit" class="btn profile-coquette-btn">
-                        Загрузить
+                        Р—Р°РіСЂСѓР·РёС‚СЊ
                     </button>
                 </div>
                 <div class="form-text profile-coquette-subtext">
-                    Форматы: JPG, PNG, WEBP, GIF. Максимальный размер: 2 МБ.
+                    Р¤РѕСЂРјР°С‚С‹: JPG, PNG, WEBP, GIF. РњР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ: 2 РњР‘.
                 </div>
             </form>
 
             <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 border-top pt-3">
                 <a asp-page="/Index" class="btn profile-coquette-btn rounded-pill px-4">
-                    <i class="bi bi-house-door"></i> На главную
+                    <i class="bi bi-house-door"></i> РќР° РіР»Р°РІРЅСѓСЋ
                 </a>
 
                 <form method="post" asp-page-handler="Logout" class="m-0">
                     <button type="submit" class="btn btn-outline-danger rounded-pill px-4">
-                        <i class="bi bi-box-arrow-right"></i> Выйти
+                        <i class="bi bi-box-arrow-right"></i> Р’С‹Р№С‚Рё
                     </button>
                 </form>
             </div>

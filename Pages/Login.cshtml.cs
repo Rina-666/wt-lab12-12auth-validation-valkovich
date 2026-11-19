@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+п»їusing Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
@@ -16,13 +16,13 @@ namespace wt_lab12_12auth_validation_valkovich.Pages
         }
 
         [BindProperty]
-        [Required(ErrorMessage = "Введите логин")]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Логин должен содержать от 3 до 50 символов")]
+        [Required(ErrorMessage = "Р’РІРµРґРёС‚Рµ Р»РѕРіРёРЅ")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Р›РѕРіРёРЅ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РѕС‚ 3 РґРѕ 50 СЃРёРјРІРѕР»РѕРІ")]
         public string Login { get; set; } = "";
 
         [BindProperty]
-        [Required(ErrorMessage = "Введите пароль")]
-        [StringLength(100, MinimumLength = 4, ErrorMessage = "Пароль должен содержать не менее 4 символов")]
+        [Required(ErrorMessage = "Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ")]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "РџР°СЂРѕР»СЊ РґРѕР»Р¶РµРЅ СЃРѕРґРµСЂР¶Р°С‚СЊ РЅРµ РјРµРЅРµРµ 4 СЃРёРјРІРѕР»РѕРІ")]
         public string Password { get; set; } = "";
 
         public void OnGet()
@@ -38,21 +38,21 @@ namespace wt_lab12_12auth_validation_valkovich.Pages
                 return Page();
             }
 
-            // 2. Поиск пользователя в PostgreSQL
+            // 2. РџРѕРёСЃРє РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ РІ PostgreSQL
             var user = await _context.Users
                 .FirstOrDefaultAsync(x => x.Login == Login && x.Password == Password);
 
-            // 3. Если пользователь не найден - ошибка
+            // 3. Р•СЃР»Рё РїРѕР»СЊР·РѕРІР°С‚РµР»СЊ РЅРµ РЅР°Р№РґРµРЅ - РѕС€РёР±РєР°
             if (user == null)
             {
-                ModelState.AddModelError("", "Неверный логин или пароль.");
+                ModelState.AddModelError("", "РќРµРІРµСЂРЅС‹Р№ Р»РѕРіРёРЅ РёР»Рё РїР°СЂРѕР»СЊ.");
                 return Page();
             }
 
-            // 4. Сохраняем логин в сессию
+            // 4. РЎРѕС…СЂР°РЅСЏРµРј Р»РѕРіРёРЅ РІ СЃРµСЃСЃРёСЋ
             HttpContext.Session.SetString("UserLogin", user.Login);
 
-            // 5. Перенаправляем в личный кабинет
+            // 5. РџРµСЂРµРЅР°РїСЂР°РІР»СЏРµРј РІ Р»РёС‡РЅС‹Р№ РєР°Р±РёРЅРµС‚
             return RedirectToPage("/Profile");
         }
     }

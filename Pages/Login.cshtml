@@ -1,27 +1,27 @@
-@page
+п»ї@page
 @model wt_lab12_12auth_validation_valkovich.Pages.LoginModel
 
 <div class="container py-4">
     <div class="card shadow-sm rounded-4 mx-auto" style="max-width: 400px;">
         <div class="card-body p-4">
-            <h2 class="text-center mb-4">Вход</h2>
+            <h2 class="text-center mb-4">Р’С…РѕРґ</h2>
 
             <form method="post">
                 <div asp-validation-summary="All" class="text-danger small mb-3"></div>
 
                 <div class="mb-3">
-                    <label asp-for="Login" class="form-label">Логин</label>
+                    <label asp-for="Login" class="form-label">Р›РѕРіРёРЅ</label>
                     <input asp-for="Login" class="form-control" />
                     <span asp-validation-for="Login" class="text-danger small"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Password" class="form-label">Пароль</label>
+                    <label asp-for="Password" class="form-label">РџР°СЂРѕР»СЊ</label>
                     <input asp-for="Password" type="password" class="form-control" />
                     <span asp-validation-for="Password" class="text-danger small"></span>
                 </div>
 
-                <button type="submit" class="btn-coquette w-100">Войти</button>
+                <button type="submit" class="btn-coquette w-100">Р’РѕР№С‚Рё</button>
             </form>
         </div>
     </div>

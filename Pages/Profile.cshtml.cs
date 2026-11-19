@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+п»їusing Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using wt_lab12_12auth_validation_valkovich.Data;
@@ -11,7 +11,7 @@ namespace wt_lab12_12auth_validation_valkovich.Pages
         private readonly IWebHostEnvironment _environment;
 
         private static readonly string[] AllowedExtensions = [".jpg", ".jpeg", ".png", ".webp", ".gif"];
-        private const long MaxFileSizeBytes = 2 * 1024 * 1024; // 2 МБ
+        private const long MaxFileSizeBytes = 2 * 1024 * 1024; // 2 РњР‘
 
         public ProfileModel(AppDbContext context, IWebHostEnvironment environment)
         {
@@ -21,7 +21,7 @@ namespace wt_lab12_12auth_validation_valkovich.Pages
 
         public int UserId { get; private set; }
         public string? UserLogin { get; private set; }
-        public string RoleTitle { get; private set; } = "Студент / Пользователь";
+        public string RoleTitle { get; private set; } = "РЎС‚СѓРґРµРЅС‚ / РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ";
         public string? AvatarPath { get; private set; }
 
         [BindProperty]
@@ -57,20 +57,20 @@ namespace wt_lab12_12auth_validation_valkovich.Pages
 
             if (AvatarFile == null || AvatarFile.Length == 0)
             {
-                ErrorMessage = "Выберите файл изображения перед загрузкой.";
+                ErrorMessage = "Р’С‹Р±РµСЂРёС‚Рµ С„Р°Р№Р» РёР·РѕР±СЂР°Р¶РµРЅРёСЏ РїРµСЂРµРґ Р·Р°РіСЂСѓР·РєРѕР№.";
                 return RedirectToPage("/Profile");
             }
 
             if (AvatarFile.Length > MaxFileSizeBytes)
             {
-                ErrorMessage = "Размер фото не должен превышать 2 МБ.";
+                ErrorMessage = "Р Р°Р·РјРµСЂ С„РѕС‚Рѕ РЅРµ РґРѕР»Р¶РµРЅ РїСЂРµРІС‹С€Р°С‚СЊ 2 РњР‘.";
                 return RedirectToPage("/Profile");
             }
 
             var extension = Path.GetExtension(AvatarFile.FileName).ToLowerInvariant();
             if (!AllowedExtensions.Contains(extension))
             {
-                ErrorMessage = "Разрешены только форматы JPG, JPEG, PNG, WEBP и GIF.";
+                ErrorMessage = "Р Р°Р·СЂРµС€РµРЅС‹ С‚РѕР»СЊРєРѕ С„РѕСЂРјР°С‚С‹ JPG, JPEG, PNG, WEBP Рё GIF.";
                 return RedirectToPage("/Profile");
             }
 
@@ -95,7 +95,7 @@ namespace wt_lab12_12auth_validation_valkovich.Pages
 
             var relativePath = $"/uploads/avatars/{fileName}";
             HttpContext.Session.SetString("UserAvatar", relativePath);
-            StatusMessage = "Фото профиля успешно обновлено.";
+            StatusMessage = "Р¤РѕС‚Рѕ РїСЂРѕС„РёР»СЏ СѓСЃРїРµС€РЅРѕ РѕР±РЅРѕРІР»РµРЅРѕ.";
 
             return RedirectToPage("/Profile");
         }
