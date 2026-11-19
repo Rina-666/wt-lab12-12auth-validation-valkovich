@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
-using wt_lab8_8razor_postgresql_valkovich.Data;
+using wt_lab12_12auth_validation_valkovich.Data;
 
 var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
@@ -9,10 +9,10 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
     WebRootPath = "wwwroot"
 });
 
-// --- 1. Настройка подключения к PostgreSQL ---
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-// Логика для Render: если есть переменная DATABASE_URL, используем её
+
 var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 if (!string.IsNullOrWhiteSpace(databaseUrl))
 {
@@ -42,8 +42,9 @@ provider.Mappings[".mp4"] = "video/mp4";
 provider.Mappings[".webm"] = "video/webm";
 builder.Services.AddSingleton<IContentTypeProvider>(provider);
 
-// --- 3. Поддержка Razor Pages ---
+
 builder.Services.AddRazorPages();
+builder.Services.AddSession(); 
 
 var app = builder.Build();
 
@@ -63,6 +64,7 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
+app.UseSession(); 
 app.MapRazorPages();
 
 // --- 5. Запуск для Render ---

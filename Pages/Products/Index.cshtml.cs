@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using wt_lab8_8razor_postgresql_valkovich.Data;
-using wt_lab8_8razor_postgresql_valkovich.Models;
+using wt_lab12_12auth_validation_valkovich.Data;
+using wt_lab12_12auth_validation_valkovich.Models;
 
-namespace wt_lab8_8razor_postgresql_valkovich.Pages.Products
+namespace wt_lab12_12auth_validation_valkovich.Pages.Products
 {
     public class IndexModel : PageModel
     {
